@@ -1,11 +1,17 @@
 import { Page, test as baseTest } from "@playwright/test";
-import { HomePage } from "../PageObject/01HomePage";
-import { SearchResult } from "../PageObject/SearchResultsPage";
+import { LoginPage } from "../PageObject/loginPage";
+import { signUp } from "../PageObject/signupPage";
+import { SelectPage } from "../PageObject/selectPage";
+import { OrderPage } from "../PageObject/orderPage";
+import { AddToCart } from "../components/add-to-cart-component";
 
 export * from '@playwright/test';
 type pages = {
-    home: HomePage;
-    search: SearchResult;
+    login: LoginPage;
+    signup: signUp;
+    select: SelectPage;
+    order: OrderPage;
+    addCart: AddToCart
 };
 
 export var page: Page;
@@ -16,13 +22,29 @@ export const testPages = baseTest.extend<pages>({
         await use(page);
     },
 
-    home: async ({ page: playwrightPage }, use: any) => {
+    login: async ({ page: playwrightPage }, use: any) => {
         page = playwrightPage
-        await use(new HomePage(page));
+        await use(new LoginPage(page));
     },
-    search: async ({ page: playwrightPage}, use: any) => {
+
+    signup: async ({ page: playwrightPage }, use: any) => {
         page = playwrightPage
-        await use(new HomePage(page));
+        await use(new signUp(page));
+    },
+
+    select: async ({ page: playwrightPage }, use: any) => {
+        page = playwrightPage
+        await use(new SelectPage(page));
+    },
+
+    order: async ({ page: playwrightPage }, use: any) => {
+        page = playwrightPage
+        await use(new OrderPage(page));
+    },
+
+    addCart: async ({ page: playwrightPage }, use: any) => {
+        page = playwrightPage
+        await use(new AddToCart(page));
     }
 })
 
